@@ -1,30 +1,46 @@
 #!/usr/bin/env python
-import rospy
-import flask
 
-from flask import Flask, request
+import flask
+import datetime
+from flask import Flask, request, render_template  
 app = Flask(__name__)
+
+
+
+
+now = datetime.datetime.now()
+date = now.strftime("%Y-%m-%d %H:%M:%S")
 
 
 @app.route('/')
 def test():
-    f = open("/home/mustar/voice_records.txt", "r")
+    
+    data = {
+       "time" : date,
+    }
+    return render_template("home_page.html", data=data)
+
+@app.route('/my_test')
+def my_test():
+    
+    f = open("/home/mustar/robotcompetition2022/voice_records.txt", "a+")
     lines = f.readlines()
     f.close()
-    s = "<style>.row { margin-bottom: 20px; }</style><div class='messagebox'>"
-    for line in lines:
-        s += "<div class='row'>" + line + "</div>"
-    s += "</div>"
-    return s
     
+    rec = open("/home/mustar/robotcompetition2022/records.txt", "a+")
+    records = rec.readlines()
+    rec.close()
     
-@app.route("/Voice", methods=['GET', 'POST'])
-def Voice():
-    voice = request.form["a"]
-    f = open("/home/mustar/voice_records.txt", "a+")
-    f.write("%s: %s\n" % ("2022-04-04 21:00:00", voice))
-    f.close()
-    print voice
-    return "OK"
-    
-app.run("127.0.0.1", debug=True)
+    content = {
+        "Time" : date,
+        "Feeling Better" : lines[0].strip(),   
+        "Medicine Working" : lines[1].strip(),
+        "Records": records
+        
+        
+    }
+
+
+    return render_template("template.html", content=content)
+
+app.run("127.0.0.1", 5000, debug=True)
