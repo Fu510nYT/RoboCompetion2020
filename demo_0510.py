@@ -81,45 +81,46 @@ if __name__ == "__main__":
         
         
             for box in _boxes:
+                
+                if box.Class == "bottle"
             
-            
-                cx = (box.xmax + box.xmin) // 2
-                cy = (box.ymax + box.ymin) // 2
-                
-                rospy.loginfo("Cx: %d" % cx)
-                
-                if cx > 426:
-                
-                    _msg_cmd_vel.linear.x = 0.0
-                    _msg_cmd_vel.angular.z = -0.1
-                    _pub_cmd_vel.publish(_msg_cmd_vel)
-                    
-                    if bottle_status != "right":
-                        print "right"
-                        bottle_status = "right"
-                        
-                    
-                
-                elif cx < 213:
-                    _msg_cmd_vel.linear.x = 0.0
-                    _msg_cmd_vel.angular.z = 0.1
-                    _pub_cmd_vel.publish(_msg_cmd_vel)
-                    
-                
-                    if bottle_status != "left":
-                        print "left"
-                        bottle_status = "left"
-                    
-                    
-                else:
-                    _msg_cmd_vel.linear.x = 0.0
-                    _msg_cmd_vel.angular.z = 0.0
-                    _pub_cmd_vel.publish(_msg_cmd_vel)
-                    if bottle_status != "mid":
-                        print "mid"
-                        bottle_status = "mid"
-                    _status = 4
-                    
+                    cx = (box.xmax + box.xmin) // 2
+                    cy = (box.ymax + box.ymin) // 2
+
+                    rospy.loginfo("Cx: %d" % cx)
+
+                    if cx > 426:
+
+                        _msg_cmd_vel.linear.x = 0.0
+                        _msg_cmd_vel.angular.z = -0.1
+                        _pub_cmd_vel.publish(_msg_cmd_vel)
+
+                        if bottle_status != "right":
+                            print "right"
+                            bottle_status = "right"
+
+
+
+                    elif cx < 213:
+                        _msg_cmd_vel.linear.x = 0.0
+                        _msg_cmd_vel.angular.z = 0.1
+                        _pub_cmd_vel.publish(_msg_cmd_vel)
+
+
+                        if bottle_status != "left":
+                            print "left"
+                            bottle_status = "left"
+
+
+                    else:
+                        _msg_cmd_vel.linear.x = 0.0
+                        _msg_cmd_vel.angular.z = 0.0
+                        _pub_cmd_vel.publish(_msg_cmd_vel)
+                        if bottle_status != "mid":
+                            print "mid"
+                            bottle_status = "mid"
+                        _status = 4
+
                 
                     
             continue
